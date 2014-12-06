@@ -1,0 +1,55 @@
+CFLAGS	=   -g
+CC	=   gcc
+
+EXE_dependencies =  \
+ codeinx.o \
+ device.o \
+ operfont.o \
+ hanfont.o \
+ haninfo.o \
+ hdisp.o \
+ setmode.o \
+ basefont.o \
+ engfont.o \
+ splfont.o \
+ hjfont.o \
+ test.o
+
+test: $(EXE_dependencies)
+	$(CC) $(CFLAGS) -o $@ $^ -lpc
+
+codeinx.o:  codeinx.cc
+	$(CC) $(CFLAGS) -c codeinx.cc
+
+device.o:  device.cc
+	$(CC) $(CFLAGS) -c device.cc
+
+operfont.o: operfont.cc
+	$(CC) $(CFLAGS) -c operfont.cc
+
+hanfont.o:  hanfont.cc hanfont.h operfont.h basefont.h
+	$(CC) $(CFLAGS) -c hanfont.cc
+
+haninfo.o:  haninfo.cc haninfo.h
+	$(CC) $(CFLAGS) -c haninfo.cc
+
+hdisp.o:  hdisp.cc hdisp.h
+	$(CC) $(CFLAGS) -c hdisp.cc
+
+setmode.o:  setmode.cc hdisp.h
+	$(CC) $(CFLAGS) -c setmode.cc
+
+basefont.o:  basefont.cc basefont.h operfont.h
+	$(CC) $(CFLAGS) -c basefont.cc
+
+engfont.o:  engfont.cc engfont.h operfont.h basefont.h
+	$(CC) $(CFLAGS) -c engfont.cc
+
+splfont.o:  splfont.cc splfont.h operfont.h basefont.h
+	$(CC) $(CFLAGS) -c splfont.cc
+
+hjfont.o:  hjfont.cc hjfont.h operfont.h basefont.h
+	$(CC) $(CFLAGS) -c hjfont.cc
+
+test.o:  test.cc hdisp.h hanfont.h basefont.h engfont.h splfont.h hjfont.h
+	$(CC) $(CFLAGS) -c test.cc
